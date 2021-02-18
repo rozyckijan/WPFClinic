@@ -5,14 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFClinic"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500.79" Width="819.3">
+        Title="MainWindow" Height="600" Width="800">
     <Grid>
-        <DataGrid HorizontalAlignment="Left" Height="357" Margin="10,100,0,0" VerticalAlignment="Top" Width="790"/>
+        <!--<DataGrid HorizontalAlignment="Left" Height="452" Margin="10,108,0,0" VerticalAlignment="Top" Width="774"/>
         <TextBox HorizontalAlignment="Left" Height="39" Margin="10,34,0,0" TextWrapping="Wrap" Text="Tusewyszukaj" VerticalAlignment="Top" Width="325"/>
         <Button Content="Szukaj" HorizontalAlignment="Left" Height="39" Margin="340,34,0,0" VerticalAlignment="Top" Width="110"/>
         <ComboBox HorizontalAlignment="Left" Margin="474,34,0,0" VerticalAlignment="Top" Width="125" Height="39"/>
-        <Button Content="Edytuj" HorizontalAlignment="Left" Margin="620,34,0,0" VerticalAlignment="Top" Width="87" Height="39"/>
-        <Button Content="Dodaj" HorizontalAlignment="Left" Margin="713,34,0,0" VerticalAlignment="Top" Width="87" Height="39"/>
-
+        <Button Content="Edytuj" HorizontalAlignment="Left" Margin="604,34,0,0" VerticalAlignment="Top" Width="87" Height="39"/>
+        <Button Content="Dodaj" HorizontalAlignment="Left" Margin="696,34,0,0" VerticalAlignment="Top" Width="87" Height="39"/>-->
+    <Grid.RowDefinitions>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
     </Grid>
 </Window>

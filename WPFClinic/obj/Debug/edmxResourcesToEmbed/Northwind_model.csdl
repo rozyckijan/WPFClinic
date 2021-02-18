@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="projektjimmyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="choroba">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="diagnoza" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="recepta" Type="Int32" />
+    <NavigationProperty Name="recepta1" Relationship="Self.FK__choroba__recepta__267ABA7A" FromRole="choroba" ToRole="recepta" />
+    <NavigationProperty Name="wizyties" Relationship="Self.FK__wizyty__choroba__31EC6D26" FromRole="choroba" ToRole="wizyty" />
+  </EntityType>
+  <EntityType Name="cza">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="dataprzyjecia" Type="DateTime" Precision="0" />
+    <Property Name="godzinaprzyjecia" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="wizyties" Relationship="Self.FK__wizyty__czas__30F848ED" FromRole="czas" ToRole="wizyty" />
+  </EntityType>
+  <EntityType Name="lekarz">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="imie" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="nazwisko" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="specjalizacja" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="nrgabinetu" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="telefon" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="mail" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="wizyties" Relationship="Self.FK__wizyty__lekarz__300424B4" FromRole="lekarz" ToRole="wizyty" />
+  </EntityType>
+  <EntityType Name="pacjent">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="imie" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="nazwisko" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="pesel" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+    <Property Name="dataurodzenia" Type="DateTime" Precision="0" />
+    <Property Name="miasto" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="ulica" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="nrdomu" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="telefon" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="mail" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="wizyties" Relationship="Self.FK__wizyty__pacjent__2F10007B" FromRole="pacjent" ToRole="wizyty" />
+  </EntityType>
+  <EntityType Name="recepta">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="leki" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ilosc" Type="Int32" />
+    <NavigationProperty Name="chorobas" Relationship="Self.FK__choroba__recepta__267ABA7A" FromRole="recepta" ToRole="choroba" />
+  </EntityType>
+  <EntityType Name="wizyty">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="pacjent" Type="Int32" Nullable="false" />
+    <Property Name="lekarz" Type="Int32" Nullable="false" />
+    <Property Name="czas" Type="Int32" Nullable="false" />
+    <Property Name="choroba" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="choroba1" Relationship="Self.FK__wizyty__choroba__31EC6D26" FromRole="wizyty" ToRole="choroba" />
+    <NavigationProperty Name="cza" Relationship="Self.FK__wizyty__czas__30F848ED" FromRole="wizyty" ToRole="czas" />
+    <NavigationProperty Name="lekarz1" Relationship="Self.FK__wizyty__lekarz__300424B4" FromRole="wizyty" ToRole="lekarz" />
+    <NavigationProperty Name="pacjent1" Relationship="Self.FK__wizyty__pacjent__2F10007B" FromRole="wizyty" ToRole="pacjent" />
+  </EntityType>
+  <Association Name="FK__choroba__recepta__267ABA7A">
+    <End Role="recepta" Type="Self.recepta" Multiplicity="0..1" />
+    <End Role="choroba" Type="Self.choroba" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="recepta">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="choroba">
+        <PropertyRef Name="recepta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__wizyty__choroba__31EC6D26">
+    <End Role="choroba" Type="Self.choroba" Multiplicity="1" />
+    <End Role="wizyty" Type="Self.wizyty" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="choroba">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="wizyty">
+        <PropertyRef Name="choroba" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__wizyty__czas__30F848ED">
+    <End Role="czas" Type="Self.cza" Multiplicity="1" />
+    <End Role="wizyty" Type="Self.wizyty" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="czas">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="wizyty">
+        <PropertyRef Name="czas" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__wizyty__lekarz__300424B4">
+    <End Role="lekarz" Type="Self.lekarz" Multiplicity="1" />
+    <End Role="wizyty" Type="Self.wizyty" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="lekarz">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="wizyty">
+        <PropertyRef Name="lekarz" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__wizyty__pacjent__2F10007B">
+    <End Role="pacjent" Type="Self.pacjent" Multiplicity="1" />
+    <End Role="wizyty" Type="Self.wizyty" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pacjent">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="wizyty">
+        <PropertyRef Name="pacjent" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="projektjimmyEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="chorobas" EntityType="Self.choroba" />
+    <EntitySet Name="czas" EntityType="Self.cza" />
+    <EntitySet Name="lekarzs" EntityType="Self.lekarz" />
+    <EntitySet Name="pacjents" EntityType="Self.pacjent" />
+    <EntitySet Name="receptas" EntityType="Self.recepta" />
+    <EntitySet Name="wizyties" EntityType="Self.wizyty" />
+    <AssociationSet Name="FK__choroba__recepta__267ABA7A" Association="Self.FK__choroba__recepta__267ABA7A">
+      <End Role="recepta" EntitySet="receptas" />
+      <End Role="choroba" EntitySet="chorobas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__wizyty__choroba__31EC6D26" Association="Self.FK__wizyty__choroba__31EC6D26">
+      <End Role="choroba" EntitySet="chorobas" />
+      <End Role="wizyty" EntitySet="wizyties" />
+    </AssociationSet>
+    <AssociationSet Name="FK__wizyty__czas__30F848ED" Association="Self.FK__wizyty__czas__30F848ED">
+      <End Role="czas" EntitySet="czas" />
+      <End Role="wizyty" EntitySet="wizyties" />
+    </AssociationSet>
+    <AssociationSet Name="FK__wizyty__lekarz__300424B4" Association="Self.FK__wizyty__lekarz__300424B4">
+      <End Role="lekarz" EntitySet="lekarzs" />
+      <End Role="wizyty" EntitySet="wizyties" />
+    </AssociationSet>
+    <AssociationSet Name="FK__wizyty__pacjent__2F10007B" Association="Self.FK__wizyty__pacjent__2F10007B">
+      <End Role="pacjent" EntitySet="pacjents" />
+      <End Role="wizyty" EntitySet="wizyties" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

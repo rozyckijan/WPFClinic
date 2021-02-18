@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="projektjimmyModelStoreContainer" CdmEntityContainer="projektjimmyEntities">
+    <EntitySetMapping Name="chorobas">
+      <EntityTypeMapping TypeName="projektjimmyModel.choroba">
+        <MappingFragment StoreEntitySet="choroba">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="diagnoza" ColumnName="diagnoza" />
+          <ScalarProperty Name="recepta" ColumnName="recepta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="czas">
+      <EntityTypeMapping TypeName="projektjimmyModel.cza">
+        <MappingFragment StoreEntitySet="czas">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="dataprzyjecia" ColumnName="dataprzyjecia" />
+          <ScalarProperty Name="godzinaprzyjecia" ColumnName="godzinaprzyjecia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="lekarzs">
+      <EntityTypeMapping TypeName="projektjimmyModel.lekarz">
+        <MappingFragment StoreEntitySet="lekarz">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="imie" ColumnName="imie" />
+          <ScalarProperty Name="nazwisko" ColumnName="nazwisko" />
+          <ScalarProperty Name="specjalizacja" ColumnName="specjalizacja" />
+          <ScalarProperty Name="nrgabinetu" ColumnName="nrgabinetu" />
+          <ScalarProperty Name="telefon" ColumnName="telefon" />
+          <ScalarProperty Name="mail" ColumnName="mail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pacjents">
+      <EntityTypeMapping TypeName="projektjimmyModel.pacjent">
+        <MappingFragment StoreEntitySet="pacjent">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="imie" ColumnName="imie" />
+          <ScalarProperty Name="nazwisko" ColumnName="nazwisko" />
+          <ScalarProperty Name="pesel" ColumnName="pesel" />
+          <ScalarProperty Name="dataurodzenia" ColumnName="dataurodzenia" />
+          <ScalarProperty Name="miasto" ColumnName="miasto" />
+          <ScalarProperty Name="ulica" ColumnName="ulica" />
+          <ScalarProperty Name="nrdomu" ColumnName="nrdomu" />
+          <ScalarProperty Name="telefon" ColumnName="telefon" />
+          <ScalarProperty Name="mail" ColumnName="mail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="receptas">
+      <EntityTypeMapping TypeName="projektjimmyModel.recepta">
+        <MappingFragment StoreEntitySet="recepta">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="leki" ColumnName="leki" />
+          <ScalarProperty Name="ilosc" ColumnName="ilosc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="wizyties">
+      <EntityTypeMapping TypeName="projektjimmyModel.wizyty">
+        <MappingFragment StoreEntitySet="wizyty">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="pacjent" ColumnName="pacjent" />
+          <ScalarProperty Name="lekarz" ColumnName="lekarz" />
+          <ScalarProperty Name="czas" ColumnName="czas" />
+          <ScalarProperty Name="choroba" ColumnName="choroba" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,417 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="projektjimmyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="choroba">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="diagnoza" Type="nvarchar" MaxLength="300" />
+          <Property Name="recepta" Type="int" />
+        </EntityType>
+        <EntityType Name="czas">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dataprzyjecia" Type="date" />
+          <Property Name="godzinaprzyjecia" Type="datetime" />
+        </EntityType>
+        <EntityType Name="lekarz">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="imie" Type="nvarchar" MaxLength="30" />
+          <Property Name="nazwisko" Type="nvarchar" MaxLength="30" />
+          <Property Name="specjalizacja" Type="nvarchar" MaxLength="40" />
+          <Property Name="nrgabinetu" Type="nchar" MaxLength="1" />
+          <Property Name="telefon" Type="nvarchar" MaxLength="15" />
+          <Property Name="mail" Type="nvarchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="pacjent">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="imie" Type="nvarchar" MaxLength="30" />
+          <Property Name="nazwisko" Type="nvarchar" MaxLength="30" />
+          <Property Name="pesel" Type="nchar" MaxLength="11" />
+          <Property Name="dataurodzenia" Type="date" />
+          <Property Name="miasto" Type="nvarchar" MaxLength="30" />
+          <Property Name="ulica" Type="nvarchar" MaxLength="30" />
+          <Property Name="nrdomu" Type="nvarchar" MaxLength="10" />
+          <Property Name="telefon" Type="nvarchar" MaxLength="15" />
+          <Property Name="mail" Type="nvarchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="recepta">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="leki" Type="nvarchar" MaxLength="150" />
+          <Property Name="ilosc" Type="int" />
+        </EntityType>
+        <EntityType Name="wizyty">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pacjent" Type="int" Nullable="false" />
+          <Property Name="lekarz" Type="int" Nullable="false" />
+          <Property Name="czas" Type="int" Nullable="false" />
+          <Property Name="choroba" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__choroba__recepta__267ABA7A">
+          <End Role="recepta" Type="Self.recepta" Multiplicity="0..1" />
+          <End Role="choroba" Type="Self.choroba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="recepta">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="choroba">
+              <PropertyRef Name="recepta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__wizyty__choroba__31EC6D26">
+          <End Role="choroba" Type="Self.choroba" Multiplicity="1" />
+          <End Role="wizyty" Type="Self.wizyty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="choroba">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="wizyty">
+              <PropertyRef Name="choroba" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__wizyty__czas__30F848ED">
+          <End Role="czas" Type="Self.czas" Multiplicity="1" />
+          <End Role="wizyty" Type="Self.wizyty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="czas">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="wizyty">
+              <PropertyRef Name="czas" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__wizyty__lekarz__300424B4">
+          <End Role="lekarz" Type="Self.lekarz" Multiplicity="1" />
+          <End Role="wizyty" Type="Self.wizyty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lekarz">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="wizyty">
+              <PropertyRef Name="lekarz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__wizyty__pacjent__2F10007B">
+          <End Role="pacjent" Type="Self.pacjent" Multiplicity="1" />
+          <End Role="wizyty" Type="Self.wizyty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pacjent">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="wizyty">
+              <PropertyRef Name="pacjent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="projektjimmyModelStoreContainer">
+          <EntitySet Name="choroba" EntityType="Self.choroba" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="czas" EntityType="Self.czas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="lekarz" EntityType="Self.lekarz" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pacjent" EntityType="Self.pacjent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="recepta" EntityType="Self.recepta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="wizyty" EntityType="Self.wizyty" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__choroba__recepta__267ABA7A" Association="Self.FK__choroba__recepta__267ABA7A">
+            <End Role="recepta" EntitySet="recepta" />
+            <End Role="choroba" EntitySet="choroba" />
+          </AssociationSet>
+          <AssociationSet Name="FK__wizyty__choroba__31EC6D26" Association="Self.FK__wizyty__choroba__31EC6D26">
+            <End Role="choroba" EntitySet="choroba" />
+            <End Role="wizyty" EntitySet="wizyty" />
+          </AssociationSet>
+          <AssociationSet Name="FK__wizyty__czas__30F848ED" Association="Self.FK__wizyty__czas__30F848ED">
+            <End Role="czas" EntitySet="czas" />
+            <End Role="wizyty" EntitySet="wizyty" />
+          </AssociationSet>
+          <AssociationSet Name="FK__wizyty__lekarz__300424B4" Association="Self.FK__wizyty__lekarz__300424B4">
+            <End Role="lekarz" EntitySet="lekarz" />
+            <End Role="wizyty" EntitySet="wizyty" />
+          </AssociationSet>
+          <AssociationSet Name="FK__wizyty__pacjent__2F10007B" Association="Self.FK__wizyty__pacjent__2F10007B">
+            <End Role="pacjent" EntitySet="pacjent" />
+            <End Role="wizyty" EntitySet="wizyty" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="projektjimmyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="choroba">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="diagnoza" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="recepta" Type="Int32" />
+          <NavigationProperty Name="recepta1" Relationship="Self.FK__choroba__recepta__267ABA7A" FromRole="choroba" ToRole="recepta" />
+          <NavigationProperty Name="wizyties" Relationship="Self.FK__wizyty__choroba__31EC6D26" FromRole="choroba" ToRole="wizyty" />
+        </EntityType>
+        <EntityType Name="cza">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dataprzyjecia" Type="DateTime" Precision="0" />
+          <Property Name="godzinaprzyjecia" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="wizyties" Relationship="Self.FK__wizyty__czas__30F848ED" FromRole="czas" ToRole="wizyty" />
+        </EntityType>
+        <EntityType Name="lekarz">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="imie" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="nazwisko" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="specjalizacja" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="nrgabinetu" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="telefon" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="mail" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="wizyties" Relationship="Self.FK__wizyty__lekarz__300424B4" FromRole="lekarz" ToRole="wizyty" />
+        </EntityType>
+        <EntityType Name="pacjent">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="imie" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="nazwisko" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="pesel" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="dataurodzenia" Type="DateTime" Precision="0" />
+          <Property Name="miasto" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ulica" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="nrdomu" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="telefon" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="mail" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="wizyties" Relationship="Self.FK__wizyty__pacjent__2F10007B" FromRole="pacjent" ToRole="wizyty" />
+        </EntityType>
+        <EntityType Name="recepta">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="leki" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ilosc" Type="Int32" />
+          <NavigationProperty Name="chorobas" Relationship="Self.FK__choroba__recepta__267ABA7A" FromRole="recepta" ToRole="choroba" />
+        </EntityType>
+        <EntityType Name="wizyty">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pacjent" Type="Int32" Nullable="false" />
+          <Property Name="lekarz" Type="Int32" Nullable="false" />
+          <Property Name="czas" Type="Int32" Nullable="false" />
+          <Property Name="choroba" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="choroba1" Relationship="Self.FK__wizyty__choroba__31EC6D26" FromRole="wizyty" ToRole="choroba" />
+          <NavigationProperty Name="cza" Relationship="Self.FK__wizyty__czas__30F848ED" FromRole="wizyty" ToRole="czas" />
+          <NavigationProperty Name="lekarz1" Relationship="Self.FK__wizyty__lekarz__300424B4" FromRole="wizyty" ToRole="lekarz" />
+          <NavigationProperty Name="pacjent1" Relationship="Self.FK__wizyty__pacjent__2F10007B" FromRole="wizyty" ToRole="pacjent" />
+        </EntityType>
+        <Association Name="FK__choroba__recepta__267ABA7A">
+          <End Role="recepta" Type="Self.recepta" Multiplicity="0..1" />
+          <End Role="choroba" Type="Self.choroba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="recepta">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="choroba">
+              <PropertyRef Name="recepta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__wizyty__choroba__31EC6D26">
+          <End Role="choroba" Type="Self.choroba" Multiplicity="1" />
+          <End Role="wizyty" Type="Self.wizyty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="choroba">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="wizyty">
+              <PropertyRef Name="choroba" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__wizyty__czas__30F848ED">
+          <End Role="czas" Type="Self.cza" Multiplicity="1" />
+          <End Role="wizyty" Type="Self.wizyty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="czas">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="wizyty">
+              <PropertyRef Name="czas" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__wizyty__lekarz__300424B4">
+          <End Role="lekarz" Type="Self.lekarz" Multiplicity="1" />
+          <End Role="wizyty" Type="Self.wizyty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lekarz">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="wizyty">
+              <PropertyRef Name="lekarz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__wizyty__pacjent__2F10007B">
+          <End Role="pacjent" Type="Self.pacjent" Multiplicity="1" />
+          <End Role="wizyty" Type="Self.wizyty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pacjent">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="wizyty">
+              <PropertyRef Name="pacjent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="projektjimmyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="chorobas" EntityType="Self.choroba" />
+          <EntitySet Name="czas" EntityType="Self.cza" />
+          <EntitySet Name="lekarzs" EntityType="Self.lekarz" />
+          <EntitySet Name="pacjents" EntityType="Self.pacjent" />
+          <EntitySet Name="receptas" EntityType="Self.recepta" />
+          <EntitySet Name="wizyties" EntityType="Self.wizyty" />
+          <AssociationSet Name="FK__choroba__recepta__267ABA7A" Association="Self.FK__choroba__recepta__267ABA7A">
+            <End Role="recepta" EntitySet="receptas" />
+            <End Role="choroba" EntitySet="chorobas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__wizyty__choroba__31EC6D26" Association="Self.FK__wizyty__choroba__31EC6D26">
+            <End Role="choroba" EntitySet="chorobas" />
+            <End Role="wizyty" EntitySet="wizyties" />
+          </AssociationSet>
+          <AssociationSet Name="FK__wizyty__czas__30F848ED" Association="Self.FK__wizyty__czas__30F848ED">
+            <End Role="czas" EntitySet="czas" />
+            <End Role="wizyty" EntitySet="wizyties" />
+          </AssociationSet>
+          <AssociationSet Name="FK__wizyty__lekarz__300424B4" Association="Self.FK__wizyty__lekarz__300424B4">
+            <End Role="lekarz" EntitySet="lekarzs" />
+            <End Role="wizyty" EntitySet="wizyties" />
+          </AssociationSet>
+          <AssociationSet Name="FK__wizyty__pacjent__2F10007B" Association="Self.FK__wizyty__pacjent__2F10007B">
+            <End Role="pacjent" EntitySet="pacjents" />
+            <End Role="wizyty" EntitySet="wizyties" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="projektjimmyModelStoreContainer" CdmEntityContainer="projektjimmyEntities">
+          <EntitySetMapping Name="chorobas">
+            <EntityTypeMapping TypeName="projektjimmyModel.choroba">
+              <MappingFragment StoreEntitySet="choroba">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="diagnoza" ColumnName="diagnoza" />
+                <ScalarProperty Name="recepta" ColumnName="recepta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="czas">
+            <EntityTypeMapping TypeName="projektjimmyModel.cza">
+              <MappingFragment StoreEntitySet="czas">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="dataprzyjecia" ColumnName="dataprzyjecia" />
+                <ScalarProperty Name="godzinaprzyjecia" ColumnName="godzinaprzyjecia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lekarzs">
+            <EntityTypeMapping TypeName="projektjimmyModel.lekarz">
+              <MappingFragment StoreEntitySet="lekarz">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="imie" ColumnName="imie" />
+                <ScalarProperty Name="nazwisko" ColumnName="nazwisko" />
+                <ScalarProperty Name="specjalizacja" ColumnName="specjalizacja" />
+                <ScalarProperty Name="nrgabinetu" ColumnName="nrgabinetu" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pacjents">
+            <EntityTypeMapping TypeName="projektjimmyModel.pacjent">
+              <MappingFragment StoreEntitySet="pacjent">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="imie" ColumnName="imie" />
+                <ScalarProperty Name="nazwisko" ColumnName="nazwisko" />
+                <ScalarProperty Name="pesel" ColumnName="pesel" />
+                <ScalarProperty Name="dataurodzenia" ColumnName="dataurodzenia" />
+                <ScalarProperty Name="miasto" ColumnName="miasto" />
+                <ScalarProperty Name="ulica" ColumnName="ulica" />
+                <ScalarProperty Name="nrdomu" ColumnName="nrdomu" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="receptas">
+            <EntityTypeMapping TypeName="projektjimmyModel.recepta">
+              <MappingFragment StoreEntitySet="recepta">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="leki" ColumnName="leki" />
+                <ScalarProperty Name="ilosc" ColumnName="ilosc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="wizyties">
+            <EntityTypeMapping TypeName="projektjimmyModel.wizyty">
+              <MappingFragment StoreEntitySet="wizyty">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="pacjent" ColumnName="pacjent" />
+                <ScalarProperty Name="lekarz" ColumnName="lekarz" />
+                <ScalarProperty Name="czas" ColumnName="czas" />
+                <ScalarProperty Name="choroba" ColumnName="choroba" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

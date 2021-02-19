@@ -19,3 +19,5 @@ C:\Users\janmr\source\repos\WPFClinic\WPFClinic\obj\Debug\WPFClinic.csproj.CoreC
 C:\Users\janmr\source\repos\WPFClinic\WPFClinic\obj\Debug\WPFClinic.csproj.CopyComplete
 C:\Users\janmr\source\repos\WPFClinic\WPFClinic\obj\Debug\WPFClinic.exe
 C:\Users\janmr\source\repos\WPFClinic\WPFClinic\obj\Debug\WPFClinic.pdb
+C:\Users\janmr\source\repos\WPFClinic\WPFClinic\obj\Debug\AppWindow.g.cs
+C:\Users\janmr\source\repos\WPFClinic\WPFClinic\obj\Debug\AppWindow.baml

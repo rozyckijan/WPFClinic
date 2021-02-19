@@ -76,6 +76,9 @@
     <Compile Include="lekarz.cs">
       <DependentUpon>Northwind_model.tt</DependentUpon>
     </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Northwind_model.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -96,6 +99,10 @@
       <DependentUpon>Northwind_model.tt</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -113,9 +120,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Northwind_model.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="AppWindow.xaml.cs">
+      <DependentUpon>AppWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -172,6 +178,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="1200px-Caduceus.svg.png" />
     <Content Include="Northwind_model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Northwind_model.edmx</DependentUpon>
@@ -182,6 +189,7 @@
       <DependentUpon>Northwind_model.edmx</DependentUpon>
       <LastGenOutput>Northwind_model.cs</LastGenOutput>
     </Content>
+    <Resource Include="tlo.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

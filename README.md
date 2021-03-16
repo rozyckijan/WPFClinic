@@ -1,4 +1,5 @@
 # WPFClinic
+Login and password to application is 'admin'
 ## 1commit
 Connection VS2019 to database and setting initial application setup.
 
